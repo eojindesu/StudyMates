@@ -14,17 +14,39 @@
 
 <br>
 
-## 2. 시작 가이드
-### Requirements
-For building and running the application you need:
-- Django
+## 2.1. 사용 가이드
 
-### Installation
+To use this template to start your own project:
 
-#### Backend
+### Existing virtualenv
 
-#### Frontend
+If your project is already in an existing python3 virtualenv first install django by running
 
+    $ pip install django
+    
+And then run the `django-admin.py` command to start the new project:
+
+    $ django-admin.py startproject \
+      --template=https://github.com/meoowwing/django-template/zipball/master \
+      --extension=py,md \
+      <project_name>
+
+<br>
+
+## 2.2. 시작 가이드
+
+Activate the virtualenv for your project.
+
+<br>
+
+Then simply apply the migrations:
+
+    $ python manage.py makemigrations
+    $ python manage.py migrate
+    
+You can now run the development server:
+
+    $ python manage.py runserver
 ---
 
 ## 3. Stacks
