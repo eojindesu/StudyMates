@@ -46,9 +46,13 @@ For building and running the application you need:
 <br>
 
 ## 4. 화면 구성
-| 메인 페이지  |  소개 페이지   |
+| 메인 페이지  |  JOIN 페이지   |
 | :-------------------------------------------: | :------------: |
-| 강좌 소개 페이지   |  강의 영상 페이지   |  
+|  <img width="329" src="https://github.com/meoowwing/StudyMates/assets/124228910/2658ce1a-64fb-40a9-a172-8316b4664a1c.png"/> | <img width="329" src="https://github.com/meoowwing/StudyMates/assets/124228910/ae79824f-c483-4ed8-bd2d-e13112080d01.png"/>|
+| BOARD 페이지  |  ToDoList 페이지   |
+| <img width="329" src=https://github.com/meoowwing/StudyMates/assets/124228910/1e3a222f-ddc5-4e3e-a39b-77bfc11bfaaa.png"/> | <img width="329" src=https://github.com/meoowwing/StudyMates/assets/124228910/26c48625-a1a5-4309-b2b3-709a645f900b.png"/>
+
+
 
 <br>
 
