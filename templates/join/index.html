@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block con %}
+    {% load mathfilters %}
+    <h1><b>스터디 개설 및 참여</b></h1>
+    <br>
+    <h5>STUDY MATES 에서 함께할 팀원을 찾으세요 🔍</h5>
+
+    <div class="text-end">
+        <a class="btn btn-dark" href="{% url 'join:create' %}">WRITE</a>
+    </div>
+
+    <table class="table table-hover mt-4" height="300">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">NO</th>
+                <th scope="col">SUBJECT</th>
+                <th scope="col">WRITER</th>
+                <th scope="col">SUMMARY</th>
+                <th scope="col">LIKEY</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in jset %}
+                <tr>
+                    <th scope="row">{{ jset.start_index|add:forloop.counter0 }}</th>
+                    <td><a href="{% url 'join:detail' i.id %}" class="sub">{{ i.jsubject }}</a></td>
+                    <td>{{ i.jwriter }}</td>
+                    <td>{{ i.jcontent|truncatewords:6 }}</td>
+                    <td>{{ i.jlikey.count }}</td>
+                </tr>
+            {% empty %}
+                <tr class="text-center">
+                    <th colspan="5"><h4>{% if kw %} 검색결과가 존재하지 않습니다 {% else %} 첫번째 게시글을 작성해주세요 {% endif %}</h4></th>
+                </tr>
+            {% endfor %}
+        
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if jset.has_previous %}
+            <li class="page-item"><a class="page-link" href="{% url 'join:index' %}?page=1&cate={{cate}}&kw={{kw}}">First</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'join:index' %}?page={{ jset.previous_page_number }}&cate={{cate}}&kw={{kw}}">Prev</a></li>
+            {% else %}
+                <li class="page-item disabled"><a class="page-link">First</a></li>
+                <li class="page-item disabled"><a class="page-link">Prev</a></li>
+            {% endif %}
+    
+            {% for i in jset.paginator.page_range %}
+                {% if i >= jset.number|sub:3 and jset.number|add:3 >= i %}
+                    <li class="page-item {% if i == jset.number %} active {% endif %}"><a class="page-link" href="{% url 'join:index' %}?page={{i}}&cate={{cate}}&kw={{kw}}">{{i}}</a></li>
+                {% endif %}
+            {% endfor %}
+    
+            {% if jset.has_next %}
+                <li class="page-item"><a class="page-link" href="{% url 'join:index' %}?page={{ jset.next_page_number }}&cate={{cate}}&kw={{kw}}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'join:index' %}?page={{ jset.paginator.num_pages }}&cate={{cate}}&kw={{kw}}">Last</a></li>
+            {% else %}
+                <li class="page-item disabled"><a class="page-link">Next</a></li>
+                <li class="page-item disabled"><a class="page-link">Last</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <form>
+        <div class="row">
+            <div class="col-sm-2">
+                <select class="form-select" name="cate">
+                    <option value="sub" {% if cate == "sub" %} selected {% endif %}>제목</option>
+                    <option value="wri" {% if cate == "wri" %} selected {% endif %}>작성자</option>
+                    <option value="con" {% if cate == "con" %} selected {% endif %}>내용</option>
+                </select>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" name="kw" value="{{kw}}" class="form-control" placeholder="검색어를 입력해주세요">
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-dark" style="width: 100%;">검색</button>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-secondary" href="{% url 'join:index' %}" style="width: 100%;">초기화</a>
+            </div>
+        </div>
+    </form>
+
+    {% for k, v in dic.items %}
+        {{ k }} {{ v }} <br>
+    {% endfor %}
+
+    <style>
+        .sub {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        .sub:hover{
+            color:brown;
+        }
+    </style>
+{% endblock %}
